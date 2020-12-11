@@ -47,7 +47,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // application routes
-app.use('/user', usersRoute);
+app.use('/users', usersRoute);
 
 // ds api route
 // app.use('/data', dsRouter);

@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const usersDal = require('../dal/users');
 
-router.get('/', async (req, res) => {
+router.get('/all', async (req, res) => {
   try {
     const users = await usersDal.getUsers();
     res.status(200).json(users);
