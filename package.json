@@ -53,6 +53,7 @@
   "dependencies": {
     "@okta/jwt-verifier": "^1.0.0",
     "axios": "^0.19.2",
+    "bcrypt": "^5.0.0",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
     "debug": "~2.6.9",
@@ -63,7 +64,10 @@
     "http-errors": "~1.6.3",
     "knex": "^0.21.1",
     "morgan": "~1.9.1",
-    "pg": "^8.2.1",
+    "node-sqlloader": "0.0.2",
+    "pg": "^8.5.1",
+    "prettier-eslint": "^12.0.0",
+    "sql-loader": "^1.0.3",
     "swagger-jsdoc": "^4.0.0",
     "swagger-ui-express": "^4.1.4"
   },
