@@ -20,6 +20,7 @@ const swaggerUIOptions = {
 
 // ###[  Routers ]###
 const usersRoute = require('./routes/users');
+const testRoute = require('./routes/check');
 // const dsRouter = require('./dsService/dsRouter');
 
 const app = express();
@@ -47,7 +48,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // application routes
-app.use('/users', usersRoute);
+app.use('/', testRoute);
+app.use(['/users', '/user'], usersRoute);
 
 // ds api route
 // app.use('/data', dsRouter);
