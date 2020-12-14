@@ -7,7 +7,7 @@ const fs = require('fs-extra');
 const upload = multer({
   storage: multer.diskStorage({
     destination: (req, file, callback) => {
-      let userId = req.body.user_id || 1;
+      let userId = req.body.user_id;
       let path = `../../uploads/${userId}`;
       fs.mkdirsSync(path);
       callback(null, path);
