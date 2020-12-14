@@ -7,14 +7,13 @@ const fs = require('fs-extra');
 const upload = multer({
   storage: multer.diskStorage({
     destination: (req, file, callback) => {
-      console.log(file);
-      let userId = req.body.user_id;
+      let userId = req.body.user_id || 1;
       let path = `../../uploads/${userId}`;
       fs.mkdirsSync(path);
       callback(null, path);
     },
     filename: (req, file, callback) => {
-      callback(null, file.originalname);
+      callback(null, Date.now() + file.originalname);
     },
   }),
 });
@@ -33,9 +32,13 @@ router.get('/', function (req, res) {
     });
 });
 
-// Upload
+// Single File
 router.post('/upload', upload.single('upload'), (req, res) => {
-  res.status(200).json({ msg: 'File uploaded' });
+  try {
+    res.send(req.file);
+  } catch (err) {
+    res.send(400);
+  }
 });
 
 // REAL
