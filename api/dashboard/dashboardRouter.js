@@ -35,7 +35,7 @@ router.get('/', function (req, res) {
 
 // Upload
 router.post('/upload', upload.single('upload'), (req, res) => {
-  res.status(200).send();
+  res.status(200).json({ msg: 'File uploaded' });
 });
 
 // REAL
