@@ -7,9 +7,26 @@ exports.up = (knex) => {
       table.string('name');
       table.string('avatarUrl');
       table.timestamps(true, true);
+    })
+    .createTable('dashboard', function (table) {
+      table.integer('id').notNullable().unique().primary();
+      table.string('name');
+      table.string('caseId');
+      table.string('country');
+      table.string('outcome');
+      table
+        .string('user_id')
+        .unsigned()
+        .notNullable()
+        .references('id')
+        .inTable('profiles')
+        .onUpdate('CASCADE')
+        .onDelete('RESTRICT');
     });
 };
 
 exports.down = (knex) => {
-  return knex.schema.dropTableIfExists('profiles');
+  return knex.schema
+    .dropTableIfExists('profiles')
+    .dropTableIfExists('dashboard');
 };
