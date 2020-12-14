@@ -7,8 +7,7 @@ const fs = require('fs-extra');
 const upload = multer({
   storage: multer.diskStorage({
     destination: (req, file, callback) => {
-      let userId = req.body.user_id;
-      let path = `../../uploads/${userId}`;
+      let path = `../../uploads/`;
       fs.mkdirsSync(path);
       callback(null, path);
     },
@@ -34,6 +33,7 @@ router.get('/', function (req, res) {
 
 // Single File
 router.post('/upload', upload.single('upload'), (req, res) => {
+  console.log(req.body.user_id);
   try {
     res.send(req.file);
   } catch (err) {
