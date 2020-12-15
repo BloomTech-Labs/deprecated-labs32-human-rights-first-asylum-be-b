@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const user = await usersDal.getUser(id);
+    const user = await usersDal.getUserById(id);
     res.status(200).json(user);
   } catch (err) {
     console.error(err);
@@ -53,6 +53,21 @@ router.post('/register', async (req, res) => {
       res.status(201).json(createdUser);
     } else {
       res.status(400).json({ error: 'invalid credentials' });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'something went wrong' });
+  }
+});
+
+router.post('/login', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    if (email && password) {
+      const user = await usersDal.getUserByEmail(email);
+      res.status(200).json(user);
+    } else {
+      res.status(401).json({ error: 'unrecognized fields' });
     }
   } catch (err) {
     console.error(err);

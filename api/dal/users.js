@@ -4,12 +4,17 @@ const sqlLoader = require('sql-loader');
 const sql = sqlLoader('../sql');
 
 async function getUsers() {
-  const { rows } = await db.query(sql.users.users);
+  const { rows } = await db.query(sql.users.get_users);
   return rows;
 }
 
-async function getUser(id) {
-  const { rows } = await db.query(sql.users.user, [id]);
+async function getUserById(id) {
+  const { rows } = await db.query(sql.users.get_user_by_id, [id]);
+  return rows;
+}
+
+async function getUserByEmail(email) {
+  const { rows } = await db.query(sql.users.get_user_by_email, [email]);
   return rows;
 }
 
@@ -21,7 +26,7 @@ async function createUser({
   permissions_flag,
   date_created,
 }) {
-  const { rows } = await db.query(sql.users.createUser, [
+  const { rows } = await db.query(sql.users.create_user, [
     firstName,
     lastName,
     password,
@@ -34,6 +39,7 @@ async function createUser({
 
 module.exports = {
   getUsers,
-  getUser,
+  getUserById,
+  getUserByEmail,
   createUser,
 };

@@ -13,7 +13,7 @@ async function initializeTables() {
 
 async function initializeDefaultUsers() {
   try {
-    await db.query(sql.users.default_users);
+    await db.query(sql.users.create_default_user);
   } catch (err) {
     console.error(err);
   }
