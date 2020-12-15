@@ -8,6 +8,7 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerJSDoc = require('swagger-jsdoc');
 const jsdocConfig = require('../config/jsdoc');
 const dotenv = require('dotenv');
+const { sign_s3 } = require('./AWS/awsModel');
 const config_result = dotenv.config();
 if (process.env.NODE_ENV != 'production' && config_result.error) {
   throw config_result.error;
@@ -53,6 +54,7 @@ app.use('/', indexRouter);
 app.use(['/profile', '/profiles'], profileRouter);
 app.use('/data', dsRouter);
 app.use('/dashboard', dashRouter);
+app.use('/upload', sign_s3);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

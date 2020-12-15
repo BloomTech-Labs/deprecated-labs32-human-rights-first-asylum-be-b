@@ -14,6 +14,7 @@ exports.up = (knex) => {
       table.string('caseId');
       table.string('country');
       table.string('outcome');
+      table.string('case_url');
       table
         .string('user_id')
         .unsigned()
@@ -27,6 +28,6 @@ exports.up = (knex) => {
 
 exports.down = (knex) => {
   return knex.schema
-    .dropTableIfExists('profiles')
-    .dropTableIfExists('dashboard');
+    .dropTableIfExists('dashboard')
+    .dropTableIfExists('profiles');
 };
