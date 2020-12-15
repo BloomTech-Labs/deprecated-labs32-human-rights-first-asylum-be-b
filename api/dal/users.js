@@ -13,7 +13,27 @@ async function getUser(id) {
   return rows;
 }
 
+async function createUser({
+  firstName,
+  lastName,
+  password,
+  email,
+  permissions_flag,
+  date_created,
+}) {
+  const { rows } = await db.query(sql.users.createUser, [
+    firstName,
+    lastName,
+    password,
+    email,
+    permissions_flag,
+    date_created,
+  ]);
+  return rows;
+}
+
 module.exports = {
   getUsers,
   getUser,
+  createUser,
 };
