@@ -1,10 +1,9 @@
 const router = require('express').Router();
-const fs = require('fs');
 const { requiredFile } = require('../middleware/fileUpload');
 
 router.post('/add', requiredFile('upload'), (req, res) => {
-  const caseFile = req.file;
-  fs.writeFileSync('./api/uploads/test.pdf', caseFile.buffer);
+  // const caseFile = req.file;
+  // TODO: upload file to ds or whatever they wanna do
   res.status(200).json({});
 });
 
