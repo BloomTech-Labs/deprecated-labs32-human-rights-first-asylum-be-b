@@ -52,7 +52,7 @@ router.post('/register', async (req, res) => {
       const createdUser = await usersDal.createUser(user);
       res.status(201).json(createdUser);
     } else {
-      res.status(400).json({ error: 'invalid credentials' });
+      res.status(409).json({ error: 'unrecognized fields' });
     }
   } catch (err) {
     console.error(err);
@@ -65,9 +65,14 @@ router.post('/login', async (req, res) => {
     const { email, password } = req.body;
     if (email && password) {
       const user = await usersDal.getUserByEmail(email);
-      res.status(200).json(user);
+      const comparePassword = bcrypt.compare(password, user[0].password);
+      if (await comparePassword) {
+        res.status(200).json({ success: 'passwords match' });
+      } else {
+        res.status(401).json({ error: 'mismatched passwords' });
+      }
     } else {
-      res.status(401).json({ error: 'unrecognized fields' });
+      res.status(409).json({ error: 'unrecognized fields' });
     }
   } catch (err) {
     console.error(err);
