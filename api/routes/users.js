@@ -80,4 +80,47 @@ router.post('/login', async (req, res) => {
   }
 });
 
+// PUT requests
+
+// TODO: finish this route
+router.put('/edit_profile/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { firstName, lastName, password, email, permissions_flag } = req.body;
+    if (firstName && lastName && password && email && permissions_flag) {
+      const updatedUser = await usersDal.updateUser({
+        id,
+        firstName,
+        lastName,
+        password,
+        email,
+        permissions_flag,
+      });
+      console.log(updatedUser);
+      res.status(200).json(updatedUser);
+    } else {
+      res.status(409).json({ error: 'unrecognized fields' });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'server error' });
+  }
+});
+
+// DELETE requests
+router.delete('/delete/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (id) {
+      const deletedUser = await usersDal.deleteUser(id);
+      console.log(deletedUser);
+      res.status(200).json({ success: `deleted user with id: ${id}` });
+    } else {
+      res.status(409).json({ error: 'missing parameters' });
+    }
+  } catch (err) {
+    res.status(500).json({ error: 'server error' });
+  }
+});
+
 module.exports = router;

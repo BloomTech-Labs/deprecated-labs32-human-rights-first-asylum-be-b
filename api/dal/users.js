@@ -37,9 +37,35 @@ async function createUser({
   return rows;
 }
 
+async function updateUser({
+  id,
+  firstName,
+  lastName,
+  password,
+  email,
+  permissions_flag,
+}) {
+  const { rows } = await db.query(sql.users.update_user, [
+    id,
+    firstName,
+    lastName,
+    password,
+    email,
+    permissions_flag,
+  ]);
+  return rows;
+}
+
+async function deleteUser(id) {
+  const { rows } = await db.query(sql.users.delete_user, [id]);
+  return rows;
+}
+
 module.exports = {
   getUsers,
   getUserById,
   getUserByEmail,
   createUser,
+  updateUser,
+  deleteUser,
 };
