@@ -82,7 +82,6 @@ router.post('/login', async (req, res) => {
 
 // PUT requests
 
-// TODO: finish this route
 router.put('/edit_profile/:id', async (req, res) => {
   try {
     const { id } = req.params;

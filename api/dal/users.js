@@ -53,7 +53,7 @@ async function updateUser({
     email,
     permissions_flag,
   ]);
-  return rows;
+  return rows[0];
 }
 
 async function deleteUser(id) {
