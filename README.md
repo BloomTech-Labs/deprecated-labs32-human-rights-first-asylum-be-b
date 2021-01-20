@@ -50,6 +50,7 @@ See .env.sample for example values
 {
   "case_id":"int",
   "user_id":"int",
+  "public":"bool",
   "case_title":"string",
   "case_number":"int",
   "judge_name":"string",
@@ -69,7 +70,6 @@ See .env.sample for example values
     }
   ]
 }
-
 ```
 
 ### Setup postgres

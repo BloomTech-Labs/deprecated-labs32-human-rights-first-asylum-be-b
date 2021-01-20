@@ -1,6 +1,6 @@
 exports.up = (knex) => {
   return knex.schema
-    .raw('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"')
+    .raw('CREATE EXTENSION IF NOT EXISTS 'uuid-ossp'')
     .createTable('profiles', function (table) {
       table.string('id').notNullable().unique().primary();
       table.string('email');
@@ -8,50 +8,54 @@ exports.up = (knex) => {
       table.string('avatarUrl');
       table.timestamps(true, true);
     })
-    .createTable("cases", table=> {
+    .createTable('cases', table=> {
       table.increments();
-      table.integer("user_id")
-        .references("profiles.id")
+      table.integer('user_id')
+        .references('profiles.id')
         .notNullable()
         .unsigned();
-      table.string("case_pdf")
+      table.string('case_pdf')
         .notNullable()
         .unique();
-      table.string("case_name")
+      table.integer('case_number');
+      table.string('case_title')
         .notNullable();
+      table.string('judge_name')
     })
-    .createTable("main_categories", table => {
+    .createTable('main_categories', table => {
       table.increments();
-      table.string("main_category_name")
+      table.string('main_category_name')
         .unique()
         .notNullable();
     })
-    .createTable("sub_categories", table => {
+    .createTable('sub_categories', table => {
       table.increments();
-      table.string("sub_category_name")
-        .unique()
-        .notNullable();
-    })
-    .createTable("tags", table => {
-      table.increments();
-      table.integer("main_id")
+      table.integer("main_category_id")
         .references("main_categories.id")
-        .unsigned();
-      table.integer("sub_id")
-        .references("sub_categories.id")
-        .unsigned();
-      table.string("tag_name")
+      table.string('sub_category_name')
         .unique()
         .notNullable();
     })
-    .createTable("tags_by_cases", table => {
+    .createTable('tags', table => {
       table.increments();
-      table.integer("tag_id")
-        .references("tags.id")
+      table.integer('main_id')
+        .references('main_categories.id')
+        .unsigned();
+      table.integer('sub_id')
+        .references('sub_categories.id')
+        .unsigned();
+      table.string('tag_name')
+        .unique()
+        .notNullable();
+    })
+    .createTable('tags_by_cases', table => {
+      table.increments();
+      table.integer('tag_id')
+        .references('tags.id')
         .notNullable()
         .unsigned();
-      table.integer("case_id")
-        .references("cases.id")
+      table.integer('case_id')
+        .references('cases.id')
         .notNullable()
         .unsigned();
     })
