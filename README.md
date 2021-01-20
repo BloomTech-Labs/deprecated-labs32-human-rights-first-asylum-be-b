@@ -32,7 +32,7 @@ See .env.sample for example values
 
 ### ENDPOINTS
 
-# Cases Endpoints
+#### Cases Endpoints
 | Request | URL | Description | Returns | Ready |
 | ------- | --- | ----------- | ------- | ------- |
 | POST | api/cases/ | post a new case| the new case Obj | |
@@ -43,6 +43,34 @@ See .env.sample for example values
 | PUT | api/cases/:id | updates case with specified ID | new case Obj | |
 | PUT | api/cases/:id/tags | updates tags for case with specified ID | new case Obj | |
 | DELETE | api/cases/:id | deletes a case with specified ID | number of deleted objects | |
+
+#### CASE OBJECT
+
+```
+{
+  "case_id":"int",
+  "user_id":"int",
+  "case_title":"string",
+  "case_number":"int",
+  "judge_name":"string",
+  "outcome":"string (or bool)",
+  "country_of_origin":"string",
+  "pdf_file":"string (pdf file link)",
+  "tags": [
+    {
+      "major_category":"string from seeds",
+      "sub_category":"string from seeds",
+      "tag_name":"string",
+    },
+    {
+      "major_category":"string from seeds",
+      "sub_category":"string from seeds",
+      "tag_name":"string",
+    }
+  ]
+}
+
+```
 
 ### Setup postgres
 
