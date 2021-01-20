@@ -30,6 +30,20 @@ Labs teams must follow all [Labs Engineering Standards](https://labs.lambdaschoo
 
 See .env.sample for example values
 
+### ENDPOINTS
+
+# Cases Endpoints
+| Request | URL | Description | Returns | Ready |
+| ------- | --- | ----------- | ------- | ------- |
+| POST | api/cases/ | post a new case| the new case Obj | |
+| POST | api/cases/:id/tags | post a new tag to a specified case | array with tags | |
+| GET | api/cases/ | gets all cases | array of all cases | |
+| GET | api/cases/:id | gets the case with a specified ID | Obj with case | |
+| GET | api/cases/:id/tags | gets all tags for the case with a specified ID | array with tags | |
+| PUT | api/cases/:id | updates case with specified ID | new case Obj | |
+| PUT | api/cases/:id/tags | updates tags for case with specified ID | new case Obj | |
+| DELETE | api/cases/:id | deletes a case with specified ID | number of deleted objects | |
+
 ### Setup postgres
 
 There are 3 options to get postgresql installed locally [Choose one]:
