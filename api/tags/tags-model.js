@@ -3,7 +3,7 @@ const db = require('../data/dbConfig.js');
 module.exports = {
     getTags,
     insertTag,
-    // getTagById,
+    getTagById,
     // updateTag,
     // removeTag,
 }
@@ -18,6 +18,9 @@ function getTags(){
             'tags.id',
             'sub.sub_category_name'
             )
+}
+function getTagById (id){
+    return db('tags').where({id}).first()
 }
 
 function insertTag(tag) {
