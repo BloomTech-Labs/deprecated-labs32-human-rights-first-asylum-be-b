@@ -44,7 +44,7 @@ See .env.sample for example values
 | PUT | api/cases/:id/tags | updates tags for case with specified ID | new case Obj | |
 | DELETE | api/cases/:id | deletes a case with specified ID | number of deleted objects | |
 
-#### CASE OBJECT
+#### GET CASE OBJECT
 
 ```
 {
@@ -59,16 +59,96 @@ See .env.sample for example values
   "pdf_file":"string (pdf file link)",
   "tags": [
     {
-      "major_category":"string from seeds",
+      "main_category":"string from seeds",
       "sub_category":"string from seeds",
       "tag_name":"string",
     },
     {
-      "major_category":"string from seeds",
+      "main_category":"string from seeds",
       "sub_category":"string from seeds",
       "tag_name":"string",
     }
   ]
+}
+```
+
+#### Post Case Object
+```
+{
+  "case_id":"int",
+  "user_id":"int",
+  "public":"bool",
+  "case_title":"string",
+  "case_number":"int",
+  "judge_name":"string",
+  "outcome":"string",
+  "country_of_origin":"string",
+  "pdf_file":"string (pdf file link)"
+}
+```
+
+#### Tags Endpoints
+| Request | URL | Description | Returns | Ready |
+| ------- | --- | ----------- | ------- | ------- |
+| POST | api/tags/ | post a new tag| the new tag Obj | |
+| GET | api/tags/ | gets all tags | array of all tags | |
+| GET | api/tags/:main_category_id | gets the tag with a specified main category ID | array with tags | |
+| GET | api/tags/:sub_category_id | gets the tag with a specified sub category ID | array with tags | |
+| PUT | api/tags/:id | updates tag with specified ID | new tag Obj | |
+| DELETE | api/tags/:id | deletes a tag with specified ID | number of deleted objects | |
+
+#### Post Tag Object
+```
+{
+  "main_category_id":"int",
+  "sub_category_id":"int",
+  "tag_name":"string"
+}
+```
+
+#### Tags_By_Cases Endpoints
+| Request | URL | Description | Returns | Ready |
+| ------- | --- | ----------- | ------- | ------- |
+| POST | api/tags_by_case/ | post a new tags_by_case| the new tags_by_case Obj | |
+| GET | api/tags_by_case/:id | gets the tags_by_case with a specified case ID | Obj with tags_by_case | |
+| DELETE | api/tags_by_case/:id | deletes a tags_by_case with specified ID | number of deleted objects | |
+
+#### Post tags_by_case Object
+```
+{
+  "case_id":"int ",
+  "tag_id":"int"
+}
+```
+
+#### main_categories Endpoints
+| Request | URL | Description | Returns | Ready |
+| ------- | --- | ----------- | ------- | ------- |
+| POST | api/main_categories/ | post a new main_categories| the new main_categories Obj | |
+| GET | api/main_categories/ | gets the main_categories | array with main_categories | |
+| DELETE | api/main_categories/:id | deletes a main_categories with specified ID | number of deleted objects | |
+
+#### GET main_categories Object
+```
+{
+  "id":"int",
+  "main_category_name":"string"
+}
+```
+
+#### sub_categories Endpoints
+| Request | URL | Description | Returns | Ready |
+| ------- | --- | ----------- | ------- | ------- |
+| POST | api/sub_categories/ | post a new sub_categories| the new sub_categories Obj | |
+| GET | api/sub_categories/:id | gets the sub_categories for main_cateogory id| array with sub_categories | |
+| DELETE | api/sub_categories/:id | deletes a sub_categories with specified ID | number of deleted objects | |
+
+#### GET sub_categories Object
+```
+{
+  "id":"int",
+  "main_category_name":"string",
+  "sub_category_name":"string"
 }
 ```
 
