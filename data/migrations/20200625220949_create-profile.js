@@ -35,11 +35,23 @@ exports.up = (knex) => {
       table.increments();
       table.integer('tag_id').references('tags.id').notNullable().unsigned();
       table.integer('case_id').references('cases.id').notNullable().unsigned();
+    })
+    .createTable('collections', (table) => {
+      table.increments();
+      table.integer('user_id').references('profiles.id');
+      table.string('collection_name').notNullable().unique();
+    })
+    .createTable('cases_by_collection', (table) => {
+      table.increments();
+      table.integer('case_id').references('cases.id').notNullable();
+      table.integer('collection_id').references('colletions.id').notNullable();
     });
 };
 
 exports.down = (knex) => {
   return knex.schema
+    .dropTableIfExists('cases_by_collections')
+    .dropTableIfExists('collections')
     .dropTableIfExists('tags_by_cases')
     .dropTableIfExists('tags')
     .dropTableIfExists('subcategories')
