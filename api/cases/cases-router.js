@@ -1,7 +1,7 @@
 const router = require('express').Router();
 // const { requiredFile } = require('../middleware/fileUpload');
 
-const Cases = require("./cases-model")
+const Cases = require('./cases-model');
 
 // router.post('/add', requiredFile('upload'), (req, res) => {
 //   // const caseFile = req.file;
@@ -11,69 +11,83 @@ const Cases = require("./cases-model")
 
 //custom middleware
 
-
 // validate id middleware
-const validateId = (req,res,next) => {
-  const id = req.params.id
-  
+const validateId = (req, res, next) => {
+  const id = req.params.id;
+
   Cases.getCaseById(id)
-  .then(data => {
-      if(data) {
-          req.caseObj = data
-          next()
-      }else{
-          next({code:400, message: "There is no class with id " + id,type:"validateId"})
+    .then((data) => {
+      if (data) {
+        req.caseObj = data;
+        next();
+      } else {
+        next({
+          code: 400,
+          message: 'There is no class with id ' + id,
+          type: 'validateId',
+        });
       }
-  })
-  .catch(error => {
-      next({code:500,message:error.message,type:"validateId"})
-  })
-}
+    })
+    .catch((error) => {
+      next({
+        code: 500,
+        message: error.message,
+        type: 'validateId',
+      });
+    });
+};
 
 // validate body unifinished
-const validateBody = (req,res,next) => {
-  const body = req.body
+const validateBody = (req, res, next) => {
+  const body = req.body;
 
-  if (!body){
-      next({code:400, message: "you must have a description and name",type:"validateBody"})
-  }else{
-      req.bodyObj = body
-      next()
+  if (!body) {
+    next({
+      code: 400,
+      message: 'you must have a description and name',
+      type: 'validateBody',
+    });
+  } else {
+    req.bodyObj = body;
+    next();
   }
-}
+};
 
 //get all cases
-router.get('/', (req,res) => {
+router.get('/', (req, res) => {
   Cases.getCases()
-  .then(data => {
-      res.status(200).json(data)
-  })
-  .catch(error => {
-      res.status(400).json({message:error.message})
-  })
-})
-
-// get case by id
-router.get('/:id', validateId,validateBody, (req,res) => {
-  res.status(200).json(req.caseObj)
-})
-
-router.post('/', (req,res) => {
-  Cases.insertCase(req.body)
-  .then(data => {
-    res.status(201).json(data)
-  })
-  .catch(error => {
-    res.status(404).json({stack:error.stack,message:error.message})
-  })
-})
-
-
-router.use((err, req, res, next) => {
-  res.status(err.code).json({ message: err.message, type:err.type })
+    .then((data) => {
+      res.status(200).json(data);
+    })
+    .catch((error) => {
+      res.status(400).json({ message: error.message });
+    });
 });
 
+// get case by id
+router.get('/:id', validateId, validateBody, (req, res) => {
+  res.status(200).json(req.caseObj);
+});
 
+router.post('/', (req, res) => {
+  Cases.insertCase(req.body)
+    .then((data) => {
+      res.status(201).json(data);
+    })
+    .catch((error) => {
+      res.status(404).json({
+        stack: error.stack,
+        message: error.message,
+      });
+    });
+});
+
+router.use((err, req, res, next) => {
+  res.status(err.code).json({
+    message: err.message,
+    type: err.type,
+  });
+  next();
+});
 
 module.exports = router;
-
