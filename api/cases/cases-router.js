@@ -1,7 +1,7 @@
 const router = require('express').Router();
-const { requiredFile } = require('../middleware/fileUpload');
+// const { requiredFile } = require('../middleware/fileUpload');
 
-const Cases = require("./caces-model")
+const Cases = require("./cases-model")
 
 // router.post('/add', requiredFile('upload'), (req, res) => {
 //   // const caseFile = req.file;
@@ -59,12 +59,12 @@ router.get('/:id', validateId,validateBody, (req,res) => {
 })
 
 router.post('/', (req,res) => {
-  Cases.insertCase()
+  Cases.insertCase(req.body)
   .then(data => {
     res.status(201).json(data)
   })
   .catch(error => {
-    res.statusMessage(404).json({message:error.message})
+    res.status(404).json({stack:error.stack,message:error.message})
   })
 })
 

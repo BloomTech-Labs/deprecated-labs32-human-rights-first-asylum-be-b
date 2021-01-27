@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { requiredFile } = require('../middleware/fileUpload');
+// const { requiredFile } = require('../middleware/fileUpload');
 
 const Tags = require("./tags-model")
 
@@ -51,19 +51,18 @@ router.get('/', (req,res) => {
   
   // post tag
   router.post('/', (req,res) => {
-    Cases.insertTag(req.body)
+    Tags.insertTag(req.body)
     .then(data => {
       res.status(201).json(data)
     })
     .catch(error => {
-      res.statusMessage(404).json({message:error.message})
+      res.status(404).json({message:error.message})
     })
   })
 
 router.use((err, req, res, next) => {
-    res.status(err.code).json({ message: err.message, type:err.type })
+    res.status(err.code).json({ message: err.message, type:err })
   });
   
   
-  
-  module.exports = router;
+module.exports = router;
