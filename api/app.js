@@ -9,9 +9,9 @@ const swaggerJSDoc = require('swagger-jsdoc');
 const jsdocConfig = require('../config/jsdoc');
 const dotenv = require('dotenv');
 const config_result = dotenv.config();
-if (process.env.NODE_ENV != 'production' && config_result.error) {
-  throw config_result.error;
-}
+// if (process.env.NODE_ENV != 'production' && config_result.error) {
+//   throw config_result.error;
+// }
 
 const swaggerSpec = swaggerJSDoc(jsdocConfig);
 const swaggerUIOptions = {
@@ -19,9 +19,11 @@ const swaggerUIOptions = {
 };
 
 // ###[  Routers ]###
+// const testRoute = require('./routes/check');
 const usersRoute = require('./routes/users');
-const casesRoute = require('./routes/cases');
-const testRoute = require('./routes/check');
+const casesRoute = require('./cases/cases-router');
+const tagsRoute = require('./tags/tags-router');
+const tagsByCasesRoute = require('./tags_by_cases/tags_by_cases-router');
 // const dsRouter = require('./dsService/dsRouter');
 
 const app = express();
@@ -49,17 +51,19 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // application routes
-app.use('/', testRoute);
-app.use(['/users', '/user'], usersRoute);
-app.use('/cases', casesRoute);
+// app.use('/', testRoute);
+app.use(['/api/users', '/user'], usersRoute);
+app.use('/api/cases', casesRoute);
+app.use('/api/tags', tagsRoute);
+app.use('/api/tags_by_cases', tagsByCasesRoute);
 
 // ds api route
 // app.use('/data', dsRouter);
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  next(createError(404));
-});
+// app.use(function (req, res, next) {
+//   next(createError(404));
+// });
 
 // error handler
 app.use(function (err, req, res, next) {
