@@ -1,5 +1,4 @@
-
-exports.seed = function(knex) {
+exports.seed = function (knex) {
   // Deletes ALL existing entries
   return knex('sub_categories')
     .truncate()
@@ -93,7 +92,7 @@ exports.seed = function(knex) {
         {
           main_category_id: 5,
           sub_category_name: 'Safe Third Country',
-        }      
+        },
       ]);
     });
 };

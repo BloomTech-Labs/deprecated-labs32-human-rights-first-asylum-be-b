@@ -10,5 +10,5 @@ function getMainCategories() {
 }
 
 function insertMainCategory(main_category_name) {
-  return db('main_catefories').insert({ main_category_name });
+  return db('main_categories').insert({ main_category_name });
 }
