@@ -9,9 +9,9 @@ const swaggerJSDoc = require('swagger-jsdoc');
 const jsdocConfig = require('../config/jsdoc');
 const dotenv = require('dotenv');
 const config_result = dotenv.config();
-// if (process.env.NODE_ENV != 'production' && config_result.error) {
-//   throw config_result.error;
-// }
+if (process.env.NODE_ENV != 'production' && config_result.error) {
+  throw config_result.error;
+}
 
 const swaggerSpec = swaggerJSDoc(jsdocConfig);
 const swaggerUIOptions = {
