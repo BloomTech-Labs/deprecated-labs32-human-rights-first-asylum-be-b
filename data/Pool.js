@@ -1,6 +1,6 @@
 const { Pool } = require('pg');
 
-const pool = new Pool({
+let pool = new Pool({
   user: 'docker',
   host: '127.0.0.1',
   database: 'api-dev',
@@ -8,11 +8,13 @@ const pool = new Pool({
   port: 5432,
 });
 
-// const pool = new Pool({
-//   connectionString: process.env.DATABASE_URL,
-//   ssl: {
-//     rejectUnauthorized: false,
-//   },
-// });
+if (process.env.DB_ENV === 'production') {
+  pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+      rejectUnauthorized: false,
+    },
+  });
+}
 
 module.exports = pool;
