@@ -44,7 +44,7 @@ See .env.sample for example values
 | PUT | api/cases/:id/tags | updates tags for case with specified ID | new case Obj | |
 | DELETE | api/cases/:id | deletes a case with specified ID | number of deleted objects | |
 
-#### CASE OBJECT
+#### GET CASE OBJECT
 
 ```
 {
@@ -59,16 +59,37 @@ See .env.sample for example values
   "pdf_file":"string (pdf file link)",
   "tags": [
     {
+      "tag_id:"int",
+      "case_id":"int",
       "major_category":"string from seeds",
       "sub_category":"string from seeds",
       "tag_name":"string",
     },
     {
+      "tag_id:"int",
+      "case_id":"int",
       "major_category":"string from seeds",
       "sub_category":"string from seeds",
       "tag_name":"string",
     }
   ]
+}
+```
+
+#### POST CASE OBJECT
+```
+{
+  "case":{
+    "user_id":"int",
+    "public":"bool",
+    "case_title":"string",
+    "case_number":"int",
+    "judge_name":"string",
+    "outcome":"string (or bool)",
+    "country_of_origin":"string",
+    "pdf_file":"string (pdf file link)"
+  },
+  "tags": ["array of tagId ints"]
 }
 ```
 
