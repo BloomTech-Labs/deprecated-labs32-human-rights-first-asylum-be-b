@@ -7,7 +7,7 @@ router.post('/', (req, res) => {
     .then((data) => {
       res.status(201).json(data);
     })
-    .catcH((error) => {
+    .catch((error) => {
       res.status(400).json({
         message: error.message,
       });
