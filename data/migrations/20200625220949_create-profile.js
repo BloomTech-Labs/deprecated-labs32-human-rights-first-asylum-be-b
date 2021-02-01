@@ -1,8 +1,7 @@
 exports.up = (knex) => {
   return knex.schema
-    .raw('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"')
     .createTable('profiles', function (table) {
-      table.string('id').notNullable().unique().primary();
+      table.increments();
       table.string('email');
       table.string('name');
       table.string('avatarUrl');
@@ -12,7 +11,9 @@ exports.up = (knex) => {
       table.increments();
       table.integer('user_id').references('profiles.id');
       table.string('case_pdf').notNullable().unique();
+      table.boolean('private');
       table.integer('case_number');
+      table.string('outcome');
       table.string('case_title').notNullable();
       table.string('judge_name');
     })

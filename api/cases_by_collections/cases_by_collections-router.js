@@ -19,9 +19,11 @@ router.delete('/', (req, res) => {
     .then((data) => {
       res.status(200).json(data);
     })
-    .catcH((error) => {
+    .catch((error) => {
       res.status(400).json({
         message: error.message,
       });
     });
 });
+
+module.exports = router;

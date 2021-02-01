@@ -24,8 +24,10 @@ const usersRoute = require('./routes/users');
 const casesRoute = require('./cases/cases-router');
 const tagsRoute = require('./tags/tags-router');
 const tagsByCasesRoute = require('./tags_by_cases/tags_by_cases-router');
-const mainCategories = require('./main_categories/main_categories-router');
-const subCategories = require('./sub_categories/sub_categories-router');
+const mainCategoriesRouter = require('./main_categories/main_categories-router');
+const subCategoriesRouter = require('./sub_categories/sub_categories-router');
+const collectionsRouter = require('./collections/collections-router');
+const casesByCollectionsRouter = require('./cases_by_collections/cases_by_collections-router');
 // const dsRouter = require('./dsService/dsRouter');
 
 const app = express();
@@ -58,8 +60,10 @@ app.use(['/api/users', '/user'], usersRoute);
 app.use('/api/cases', casesRoute);
 app.use('/api/tags', tagsRoute);
 app.use('/api/tags_by_cases', tagsByCasesRoute);
-app.use('/api/main_categories', mainCategories);
-app.use('/api/sub_categories', subCategories);
+app.use('/api/main_categories', mainCategoriesRouter);
+app.use('/api/sub_categories', subCategoriesRouter);
+app.use('/api/collections', collectionsRouter);
+app.use('/api/cases_by_collections', casesByCollectionsRouter);
 
 // ds api route
 // app.use('/data', dsRouter);
