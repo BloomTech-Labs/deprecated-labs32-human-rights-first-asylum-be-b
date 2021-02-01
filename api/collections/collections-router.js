@@ -3,7 +3,7 @@ const router = require('express').Router();
 const Collections = require('./collections-model');
 
 router.post('/', (req, res) => {
-  Collections.insertCaseByCollection(req.body)
+  Collections.insertCollection(req.body)
     .then((data) => {
       res.status(201).json(data);
     })
@@ -19,9 +19,11 @@ router.get('/:id', (req, res) => {
     .then((data) => {
       res.status(200).json(data);
     })
-    .catcH((error) => {
+    .catch((error) => {
       res.status(400).json({
         message: error.message,
       });
     });
 });
+
+module.exports = router;
